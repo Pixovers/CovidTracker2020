@@ -1,8 +1,7 @@
 <?php
-    $servername = "sql103.epizy.com";
-    $username = "epiz_26265201";
-    $password = "s3DHWWviN5WB";
-    $db = "epiz_26265201_pino";
+
+    //credenziali di accesso al database
+    include 'config/database.php';
 
     //data attuale
     $dateToShow = date("Y-m-d");
@@ -33,7 +32,7 @@
 
     <!-- sistemare -->
     <link rel="icon" href="   ">
-    <title>COVID NEWS</title>
+    <title>Covid-19 Data Tracker</title>
     <meta name="description"
         content="aggiornamenti, hai la possivilita' di scaricare tutti i dati messi a disposizione">
     <meta name="keywords" content="covid, coronavirus, emergenza, ecc">
@@ -53,12 +52,19 @@
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
 
+
+
     <!-- import css -->
 
     <!--data picker-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!--data picker-->
+
+    <!-- CSS splash screen -->
+    <link rel="stylesheet" type="text/css" href="css/splash_screen.css">
+
+
 
 </head>
 
@@ -94,7 +100,7 @@
 
 
     <!-- navbar --> 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary dark_mode_object" id="nav">
         <img src="https://images.vexels.com/media/users/3/193114/isolated/preview/0be3590284a8dc5f1646b64816e2eb6e-covid-stop-badge-by-vexels.png"
             width="30" height="30" alt="Covid" loading="lazy">
         <a class="navbar-brand" href="#">COVID TRACKER 2020</a>
@@ -110,6 +116,7 @@
                     <a class="nav-link" href="#">Map</a>
                 </li>
 
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,8 +130,24 @@
                     </div>
                 </li>
 
+
             </ul>
-            <button type="button" class="btn btn-danger">Donazioni</button>
+
+            <div class="checkbox" style="width:15%;float:left;">
+            <input  type="checkbox"
+                    checked data-toggle="toggle" 
+                    data-on="Light Mode" 
+                    data-off="Dark Mode" 
+                    data-onstyle="info" 
+                    data-offstyle="dark"
+                    data-style="border"
+                    onChange="toggleDarkMode()">
+            </div>
+
+            
+            <!-- <button type="button" class="btn btn-warning btn-sm mr-5" onclick="setDarkMode(true)">Try Dark Mode</button> -->
+
+            <script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#20e648', 'S6S41Y4BV');kofiwidget2.draw();</script> 
             </form>
         </div>
     </nav>
@@ -135,74 +158,15 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-6">
-                <div class="alert alert-primary" role="alert"> Possiamo usare questo spazio per annunci o pubblicita'  </div>
+                <div class="alert alert-danger" role="alert"><p style="text-align: center;"><span style="font-size: 18pt;">We are constantly working to make this site better, <span style="color: #ff0000;"><a style="color: #ff0000;" title="skinnymonkeys7@gmail.com" href="mailto:skinnymonkeys7@gmail.com">contact us for suggestions</a></span></span></p> </div>
             </div>
             <div class="col-sm-6">
-              <div class="alert alert-primary" role="alert"> Supporta il nostro progetto facendo una donazione <a href="#" class="alert-link">Dona!</a> </div>
+              <div class="alert alert-info" role="alert"><p style="text-align: center;"><span style="text-decoration: underline; color: #ff6600; font-size: 18pt;"><a style="color: #ff6600; text-decoration: underline;" title="Help us with a donation" href="https://ko-fi.com/skinnymonkeys" target="_blank" rel="noopener">∼ Support our project with a donation!</a></span></p></div>
             </div>
           </div>
         </div>
       </div>
 
-    <!--splash screen-->
-    <style>
-        .loader_bg {
-            position: fixed;
-            z-index: 999999;
-            background: #fff;
-            width: 100%;
-            height: 100%;
-        }
-
-        .loader {
-            border: 0 solid transparent;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            position: absolute;
-            top: calc(50vh - 75px);
-            left: calc(50vw - 75px);
-
-        }
-
-        .loader:before,
-        .loader:after {
-            content: '';
-            border: 1em solid #ff5733;
-            border-radius: 50%;
-            width: inherit;
-            height: inherit;
-            position: absolute;
-            top: 0;
-            left: 0;
-            animation: loader 2s linear infinite;
-            opacity: 0;
-        }
-
-        .loader:before {
-
-            animation-delay: .5s;
-        }
-
-        @keyframes loader {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 0;
-
-            }
-
-        }
-    </style>
-    <!--splash screen-->
 
     <!--prima riga-->
     <div class="primariga">
@@ -210,16 +174,91 @@
             <div class="row">
                 <div class="col-sm-4" style="">
                     <!--Info generali-->
-                    <div class="card mb-3">
-                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.UswMR3YoH1l2WmWWcSroHAHaFf%26pid%3DApi&f=1"          class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h2 class="card-title">CASI TOTALI:</h2>
-                          <p class="card-text">Ciao</p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="card text-white bg-primary mb-3" >
+                        <div class="card-header">Header</div>
+                        <div class="card-body bg-light dark_mode_object" id="info">
+                          <!-- Titolo box info generali -->
+
+
+                        
+                        
+                        <h1 class="card-title dark_mode_object" style="text-align:center"><img src="images/globe.png" alt="logo" width="50" height="50" />WORLD</h1>
+
+
+
+                          
+                          <h6 class="card-title" style="text-align:center">
+                            <?php
+                                echo $dateToShow;
+                            ?>
+                          </h6>
+                          
+                          <!-- Casi totali -->
+                          <h1 class="card-title" style="text-align:center;font-weight: 800; color: rgb(230, 46, 0); font-size: 450%;">
+                            <?php 
+                                //creazione del testo della query
+                                $sql = "SELECT total_cases ".
+                                       "FROM covid_data ".
+                                       "WHERE date = '$dateToShow' AND location = 'World'";
+                                    
+                                //esecuzione della query
+                                echo $conn->query($sql)->fetch_assoc()["total_cases"];
+                            ?>
+                          </h1>
+                          <p class="card-text" style="text-align:center"><small class="text-muted">Total cases</small></p>
+                          <!-- Casi totali -->
+                          <h1 class="card-title" style="text-align:center;font-weight: 800; color: rgb(77, 77, 255); font-size: 450%;">
+                            <?php 
+                                //creazione del testo della query
+                                $sql = "SELECT new_cases ".
+                                       "FROM covid_data ".
+                                       "WHERE date = '$dateToShow' AND location = 'World'";
+                                    
+                                //esecuzione della query
+                                echo $conn->query($sql)->fetch_assoc()["new_cases"];
+                            ?>
+                          </h1>
+                          <p class="card-text" style="text-align:center"><small class="text-muted">New cases today</small></p>
+                          <!-- Casi totali -->
+                          <h1 class="card-title" style="text-align:center;font-weight: 800; color: rgb(77, 77, 77); font-size: 450%;">
+                            <?php 
+                                //creazione del testo della query
+                                $sql = "SELECT total_deaths ".
+                                       "FROM covid_data ".
+                                       "WHERE date = '$dateToShow' AND location = 'World'";
+                                    
+                                //esecuzione della query
+                                echo $conn->query($sql)->fetch_assoc()["total_deaths"];
+                            ?>
+                          </h1>
+                          <p class="card-text" style="text-align:center"><small class="text-muted">Total deaths</small></p>
+                          <!-- Casi totali -->
+                          <h1 class="card-title" style="text-align:center;font-weight: 800; color: rgb(0, 0, 128); font-size: 450%;">
+                            <?php 
+                                //creazione del testo della query
+                                $sql = "SELECT new_deaths ".
+                                       "FROM covid_data ".
+                                       "WHERE date = '$dateToShow' AND location = 'World'";
+                                    
+                                //esecuzione della query
+                                echo $conn->query($sql)->fetch_assoc()["new_deaths"];
+                            ?>
+                          </h1>
+                          <p class="card-text" style="text-align:center"><small class="text-muted">New deaths today</small></p>
+
+                          <!-- Linea di divisione -->
+                          <div class="mb-4">
+                            <hr class="solid">
+                          </div>
+                          <style>
+                            hr.solid {
+                              border-top: 2px solid #999;
+                            }
+                          </style>
 
                           <!-- calendario -->
-                          <h2 class="card-title">Select date:</h2>
-                          <div class="p"><input id = "flatpickr"></div>
+                          <h2 class="card-title" style="text-align:center;">Select date:</h2>
+                          <div class="text-center"><input id = "flatpickr" align="center" placeholder="<?php echo $dateToShow ?>" style="text-align: center;"></div>
                           <script>
                             var example = flatpickr('#flatpickr',{
 
@@ -246,25 +285,31 @@
 
                     </div>
 
-
+                    
 
                 <!--prima dabella (Mondo)-->
                 <div class="col-sm-8" style="">
-                    <div class="card text-white bg-secondary shadow-lg">
-                        <div class="card-header"><b>MONDO</b></div>
-                        <div class="card-body bg-light text-primary">
+                    <div class="card text-white bg-primary shadow-lg" >
+                        <div class="card-header" id="header_mondo"><b>WORLD</b></div>
+                        <div class="card-body bg-light text-primary dark_mode_object"  id="body_mondo">
 
-                            <table id="mondo" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                            <table class="table table-striped "  id="Mondo" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -304,28 +349,6 @@
 
 
 
-
-                            <!-- script per esportare i file delle tabelle -->
-                            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-                            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-                            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-                            <script
-                                src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-                            <script
-                                src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-                            <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-                            <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-                            <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
-                            <script
-                                src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-                            <script
-                                src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-                            <!-- script per esportare i file delle tabelle -->
-
-
                         </div>
                     </div>
                 </div>
@@ -341,22 +364,28 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="card text-white bg-secondary shadow-lg">
-                        <div class="card-header"><b>NORD AMERICA</b></div>
-                        <div class="card-body bg-light text-primary">
+                    <div class="card text-white bg-danger shadow-lg" >
+                        <div class="card-header" ><b>NORD AMERICA</b></div>
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_nord_america">
 
                             <!--seconda Tabella (nord  America)-->
-                            <table id="nordAmerica" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                            <table class="table table-striped "  id="NordAmerica" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -400,22 +429,28 @@
 
 
                 <div class="col-sm-6">
-                    <div class="card text-white bg-secondary shadow-lg">
+                    <div class="card text-white bg-danger shadow-lg" >
                         <div class="card-header"><b>SUD AMERICA</b></div>
-                        <div class="card-body bg-light text-primary">
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_sud_america">
 
-                            <!--terza dabella (sud America)-->
-                            <table id="sudAmerica" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                            <!--seconda Tabella (sud  America)-->
+                            <table class="table table-striped "  id="SudAmerica" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -466,21 +501,28 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card text-white bg-secondary shadow-lg">
+                    <div class="card text-white bg-success shadow-lg" >
                         <div class="card-header"><b>EUROPA</b></div>
-                        <div class="card-body bg-light text-primary">
-                            <!--Quarta tabella (Europa)-->
-                            <table id="Europa" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_europa">
+
+                            <!--seconda Tabella (sud  America)-->
+                            <table class="table table-striped "  id="Europa" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -524,22 +566,29 @@
                 </div>
                 <div class="col-md-6">
 
-                    <div class="card text-white bg-secondary shadow-lg">
+                    <div class="card text-white bg-success shadow-lg" >
                         <div class="card-header"><b>ASIA</b></div>
-                        <div class="card-body bg-light text-primary">
-
-                            <!--Quinta tabella (Asia)-->
-                            <table id="Asia" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_asia">
+                          <!--Quinta tabella (Asia)-->
+                           
+                            <table class="table table-striped "  id="Asia" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
+                               
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -591,22 +640,28 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card text-white bg-secondary shadow-lg">
+                    <div class="card text-white bg-warning shadow-lg" >
                         <div class="card-header"><b>AFRICA</b></div>
-                        <div class="card-body bg-light text-primary">
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_africa">
 
-                            <!--sesta tabella (Africa)-->
-                            <table id="Africa" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                            <!--seconda Tabella (sud  America)-->
+                            <table class="table table-striped "  id="Africa" data-toggle="table" data-height="600" data-show-toggle="true"
+                            data-detail-view="true" data-detail-view-icon="false"
+                            data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                            data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                            data-search="true" data-search-align="left" data-sort-class="table-active"
+                            data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                            data-click-to-select="true">
+                            <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -649,22 +704,29 @@
                 </div>
                 <div class="col-md-6">
 
-                    <div class="card text-white bg-secondary shadow-lg">
+                    
+                    <div class="card text-white bg-warning shadow-lg" >
                         <div class="card-header"><b>OCEANIA</b></div>
-                        <div class="card-body bg-light text-primary">
+                        <div class="card-body bg-light text-primary dark_mode_object" id="body_oceania">
 
                             <!--settima tabella (Oceania)-->
-                            <table id="Oceania" class="table table-striped table-bordered dt-responsive nowrap"
-                                style="width:100%">
-                                <thead>
+                            <table class="table table-striped "  id="Oceania" data-toggle="table" data-height="600" data-show-toggle="true"
+                                data-detail-view="true" data-detail-view-icon="false"
+                                data-detail-formatter="detailFormatter" data-header-style="headerStyle"
+                                data-show-fullscreen="true" data-mobile-responsive="true" data-show-columns="true"
+                                data-search="true" data-search-align="left" data-sort-class="table-active"
+                                data-sortable="true" data-show-export="true" data-toolbar="#toolbar"
+                                data-click-to-select="true">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">NAME</th>
-                                        <th scope="col">CONFIRMED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">DECEASED</th>
-                                        <th scope="col">CHANGES TODAY</th>
-                                        <th scope="col">TESTS</th>
-                                        <th scope="col">CHANGES TODAY</th>
+
+                                        <th data-field="name" scope="col" data-sortable="true">NAME</th>
+                                        <th data-field="confirmed" scope="col" data-sortable="true">CONFIRMED</th>
+                                        <th data-field="changes1" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="deceased" scope="col" data-sortable="true">DECEASED</th>
+                                        <th data-field="changes2" scope="col" data-sortable="true">CHANGES TODAY</th>
+                                        <th data-field="tests" scope="col" data-sortable="true">TESTS</th>
+                                        <th data-field="changes3" scope="col" data-sortable="true">CHANGES TODAY</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -713,138 +775,136 @@
   
     
     <!--footer-->
-    <div class="footer">
-        <div class="container-fluid py-5 shadow-lg border-danger bg-primary">
-            <div class="row bg-primary">
-                <div class="p-4 col-md-3 shadow-lg border-secondary bg-info" style="">
-                    <h2 class="mb-4">COVID</h2>
-                    <p>nulla</p>
-                </div>
-                <div class="p-4 col-md-3 border-success bg-success shadow-lg">
-                    <h2 class="mb-4">Mapsite</h2>
-                    <ul class="list-unstyled"> <a href="#" class="text-dark">Home</a> <br> <a href="#"
-                            class="text-dark">map</a>
-                        <br> <a href="#" class="text-dark">contacts</a> <br> <a href="#" class="text-dark">about us</a>
-                    </ul>
-                </div>
-                <div class="p-4 col-md-3 bg-danger shadow-lg">
-                    <h2 class="mb-4">Contact</h2>
-                    <p contenteditable="true"> <a href="#" class="text-dark">
-                            <i class="fa d-inline mr-3 text-muted fa-envelope-o"></i>e</a>mail</p>
-                </div>
-                <div class="p-4 col-md-3 text-body bg-warning shadow-lg">
-                    <h2 class="mb-4">Subscribe</h2>
-                    <form>
-                        <fieldset class="form-group"> <label for="exampleInputEmail1">Get our newsletter</label> <input
-                                type="email" class="form-control" placeholder="Enter email"> </fieldset> <button
-                            type="submit" class="btn btn-outline-dark">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-3">
-                    <p class="text-center">© Copyright <?php echo date("Y"); ?>&nbsp;</p>
-                </div>
-            </div>
+ <div class="footer">
+    <div class="container-fluid py-5 shadow-lg border-danger bg-info">
+      <div class="row shadow">
+        <div class="p-4 col-md-3" style="">
+          <h2 class="mb-4">COVID</h2>
+          <p>nulla</p>
         </div>
+        <div class="p-4 col-md-3 shadow-none">
+          <h2 class="mb-4">Mapsite</h2>
+          <ul class="list-unstyled"> <a href="#" class="text-dark">Home</a> <br> <a href="#" class="text-dark">map</a>
+            <br> <a href="#" class="text-dark">contacts</a> <br> <a href="#" class="text-dark">about us</a>
+          </ul>
+        </div>
+        <div class="p-4 col-md-3">
+          <h2 class="mb-4">Contact</h2>
+          <p contenteditable="true"> <a href="#" class="text-dark">
+              <i class="fa d-inline mr-3 text-muted fa-envelope-o"></i>e</a>mail</p>
+        </div>
+        <div class="p-4 col-md-3 text-body">
+          <h2 class="mb-4">Subscribe</h2>
+          <form>
+            <fieldset class="form-group"> <label for="exampleInputEmail1">Get our newsletter</label> <input type="email" class="form-control" placeholder="Enter email"> </fieldset> <button type="submit" class="btn       btn-outline-dark">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <p class="text-center">© Copyright <?php echo date("Y"); ?>&nbsp;</p>
+        </div>
+      </div>
     </div>
+  </div>
     <!--footer riga-->
 
-    <!--script tabelle-->
-    <div>
-
-        <script>
-
-            $(document).ready(function () {
-                var table = $('#mondo').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#mondo_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                var table = $('#nordAmerica').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#nordAmerica_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                var table = $('#sudAmerica').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#sudAmerica_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                var table = $('#Europa').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#Europa_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                var table = $('#Asia').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#Asia_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                var table = $('#Africa').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
-
-                table.buttons().container()
-                    .appendTo('#Africa_wrapper .col-md-6:eq(0)');
-            });
-        </script>
 
 
-        <script>
-            $(document).ready(function () {
-                var table = $('#Oceania').DataTable({
-                    lengthChange: false,
-                    buttons: ['copy', 'excel', 'csv', 'pdf']
-                });
+                            <!-- script per esportare i file delle tabelle -->
+                            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+                            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+                            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
-                table.buttons().container()
-                    .appendTo('#Oceania_wrapper .col-md-6:eq(0)');
-            });
-        </script>
-    </div>
-    <!--script tabelle-->
+                            <script
+                                src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+                            <script
+                                src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+                            <script
+                                src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+                            <!-- script per esportare i file delle tabelle -->
+
+                             <!-- scrip header-->
+                             <script>
+                                function headerStyle(column) {
+                                    return {
+                                        name: {
+                                            classes: 'uppercase'
+                                        },
+                                        confirmed: {
+                                            css: { color: 'red' }
+                                        },
+                                        changes1: {
+                                            css: { background: '' }
+                                        },
+                                        deceased: {
+                                            css: { color: 'red' }
+                                        },
+                                        changes2: {
+                                            css: { background: '' }
+                                        },
+                                        tests: {
+                                            css: { color: 'red' }
+                                        },
+                                        changes3: {
+                                            css: { background: '' }
+                                        }
+                                    }[column.field]
+                                }
+                            </script>
 
 
-    <!--plugin scroll-->
- 
-    <!--plugin scroll-->
+
+
+
+                                <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
+                            <link href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css"
+                                rel="stylesheet">
+
+                            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+                            <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+                            <script
+                                src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+
+                            <script
+                                src="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+                            <script
+                                src="https://unpkg.com/bootstrap-table@1.17.1/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+
+                                <style>
+                                .uppercase {
+                                    text-transform: uppercase;
+                                }
+                            </style>
+
+                            <!-- script switch -->
+                            <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+                            <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+                            <!-- script switch -->
+
+
+
+
+
+
+
+
+ <!-- full screen-->
+
+                            <script>
+                                window.icons = {
+
+                                    fullscreen: 'ion-md-expand'
+                                }
+                            </script>
+                            <!-- full screen-->
+
+
 
 
 <!--data picker-->
@@ -860,14 +920,30 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-
     <!--Import-->
+
+
+    <!--cookie managment (serve anche per la dark mode)-->
+    <script src="js/cookie_managment.js"></script>
+
+    <!-- gestione dark mode -->
+    <script src="js/dark_mode.js"></script>
+
+    <script>
+        if( isDarkMode() ) {
+            setDarkMode( true );
+        }
+    </script>
+
+
+
+
 
     <!--script splash screen-->
     <script>
         setTimeout(function () {
             $('.loader_bg').fadeToggle();
-        }, 300);
+        }, 100);
     </script>
 </body>
 <!--script splash screen-->
