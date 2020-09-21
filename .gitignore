@@ -1,11 +1,10 @@
 #.gitingore file
 
-*.pro.user
-*.moc
-*.moc
-moc_*.cpp
-qrc_*.cpp
-moc_*.h
-ui_*.h
-*.autosave
-build*/
+db_credentials.php
+sitemap.xml
+robots.txt
+ads.txt
+
+blog/
+.well-known/
+sitemap/

@@ -1,0 +1,18 @@
+
+.zoom {
+ 
+ transition: transform .2s; 
+}
+
+.zoom:hover {
+ transform: scale(1.0099); 
+}
+
+.zoom1 {
+ 
+  transition: transform .2s; 
+}
+
+.zoom1:hover {
+  transform: scale(1.0099);
+}
