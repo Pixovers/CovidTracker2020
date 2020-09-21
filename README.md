@@ -1,1 +1,2 @@
-# CovidTracker2020
+# CovidTracker2020.live
+
