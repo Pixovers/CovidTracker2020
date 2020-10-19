@@ -227,7 +227,7 @@ error_reporting(E_ALL);
         echo "Caricamento dati dal file csv - Durata: " . load_covid_data( $remote_csv_file ) . "s<br>";
         echo "Elaborazione dati mappa - Durata: " . load_map() . "s<br><br>";
         
-        $continents = array( "Oceania", "Africa", "Europe", "North America", "South America", "Asia" );
+        $continents = array( "Oceania", "Europe", "North America", "South America" );
         foreach( $continents as $continent ) {
             $time = load_continent( $continent);
             echo "Elaborazione " . $continent . " - Durata: " . $time . "s - Tempo di esecuzione di una query: ".($time/$GLOBALS['query_count'])."<br>";

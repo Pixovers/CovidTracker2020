@@ -31,6 +31,7 @@ include '/home/covid/resources/classes/math.php';
                         <div class="col text-right">
                             Data: <input class="ml-1 mt-3" id="flatpickr" placeholder="<?php echo $DATE; ?>" style="text-align: center;">
                         </div>
+                        <script src="/js/datapicker.js"></script>
                     </div>
 
 

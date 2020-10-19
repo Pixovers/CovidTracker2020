@@ -110,9 +110,7 @@ $dates = intervalsFromDate("2020-01-01", "months");
                         <div class="container-fluid">
                             <div class="row">
                                 <h2>WORLD</h2>
-                                <?php 
-                                include "/home/covid/public_html/pages/counters_managment.php";
-                                include "/home/covid/public_html/pages/form/index.php"; ?>
+                               
                             </div>
 
                         </div>

@@ -65,6 +65,9 @@ class InfoCard
 
                                 //esecuzione della query
                                 $v2 =  $connection->query($sql)->fetch_assoc()["new_cases"];
+                                if( Math::percentageVariation($v2, $v1, 0) >= 0 ) {
+                                    echo "+";
+                                }
                                 echo Math::percentageVariation($v2, $v1, 0) . "%";
                                 ?>
                             </em>
@@ -139,6 +142,9 @@ class InfoCard
 
                                 //esecuzione della query
                                 $v2 =  $connection->query($sql)->fetch_assoc()["new_deaths"];
+                                if( Math::percentageVariation($v2, $v1, 0) >= 0 ) {
+                                    echo "+";
+                                }
                                 echo Math::percentageVariation($v2, $v1, 0) . "%";
                                 ?>
                             </em>
