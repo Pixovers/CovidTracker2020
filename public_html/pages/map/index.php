@@ -41,7 +41,6 @@ include "/home/covid/resources/config.php";
       #vmap {
         width: 100%;
         height: 100%;
-        background-color: red;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
       .jqvmap-zoomin {
@@ -61,7 +60,7 @@ include "/home/covid/resources/config.php";
       jQuery(document).ready(function () {
         jQuery('#vmap').vectorMap({
           map: 'world_en',
-          backgroundColor: '#474c52',
+          backgroundColor: 'rgba(0,0,0,0)',
           color: '#353a40',
           hoverOpacity: 0.7,
           selectedColor: '#666666',

@@ -16,74 +16,86 @@ include '/home/covid/resources/classes/math.php';
 <body>
     <?php
     include '/home/covid/resources/templates/navbar.php';
-    include '/home/covid/resources/templates/messages.html';
+    //include '/home/covid/resources/templates/messages.html';
     ?>
 
     <!--prima riga-->
     <div class="primariga">
-        <div class="container-fluid">
+        <div class="container-fluid mt-2">
             <div class="row">
+
+
                 <div class="col-sm-4 py-2">
-                    <div class="row">
-                        <div class="col">
-                            <h1>General</h1>
+
+                    <div class="card text-white mb-3 dark_mode_object">
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class='text-primary'>General</h1>
+                                </div>
+                                <div class="col text-right">
+                                    Data: <input class="ml-1 mt-3" id="flatpickr" placeholder="<?php echo $DATE; ?>" style="text-align: center;">
+                                </div>
+                                <script src="/js/datapicker.js"></script>
+                            </div>
+
+
+                            <div class="py-2">
+                                <?php
+                                InfoCard::TotalCases($COVID_DB_CONN, $DATE);
+                                ?>
+                            </div>
+
+                            <div class="py-2">
+                                <?php
+                                InfoCard::NewCases($COVID_DB_CONN, $DATE);
+                                ?>
+                            </div>
+
+                            <div class="py-2">
+
+                                <?php
+                                InfoCard::TotalDeaths($COVID_DB_CONN, $DATE);
+                                ?>
+                            </div>
+
+
+                            <div class="py-2">
+                                <?php
+                                InfoCard::NewDeaths($COVID_DB_CONN, $DATE);
+                                ?>
+                            </div>
                         </div>
-                        <div class="col text-right">
-                            Data: <input class="ml-1 mt-3" id="flatpickr" placeholder="<?php echo $DATE; ?>" style="text-align: center;">
-                        </div>
-                        <script src="/js/datapicker.js"></script>
                     </div>
 
 
 
-                    <div class="py-2">
-                        <?php
-                        InfoCard::TotalCases($COVID_DB_CONN, $DATE);
-                        ?>
-                    </div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-h5-28-x-6z+xf" data-ad-client="ca-pub-1084371123442891" data-ad-slot="4154556835"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
 
-                    <div class="py-2">
-                        <?php
-                        InfoCard::NewCases($COVID_DB_CONN, $DATE);
-                        ?>
-                    </div>
 
-                    <div class="py-2">
-
-                        <?php
-                        InfoCard::TotalDeaths($COVID_DB_CONN, $DATE);
-                        ?>
-                    </div>
-                
-
-                    <div class="py-2">
-                                            <?php
-                    InfoCard::NewDeaths($COVID_DB_CONN, $DATE);
-                    ?>
                 </div>
 
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-h5-28-x-6z+xf" data-ad-client="ca-pub-1084371123442891" data-ad-slot="4154556835"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-
-            <!--prima tabella (Mondo)-->
-            <div class="col-sm-8 py-2">
-                <div class="card zoom shadow text-white bg-primary dark_mode_object  shadow-lg">
-                    <div class="card-body bg-light text-primary dark_mode_object border-bottom-primary" id="body_mondo">
-                        <h2>WORLD</h2>
-                        <?php
-                        $table = new CountryListTable("World", $DATE);
-                        $table->genTable();
-                        ?>
+                <!--prima tabella (Mondo)-->
+                <div class="col-sm-8 py-2">
+                    <div class="card zoom shadow text-white bg-primary dark_mode_object  shadow-lg">
+                        <div class="card-body bg-light text-primary dark_mode_object border-bottom-primary" id="body_mondo">
+                            <h2>WORLD</h2>
+                            <?php
+                            $table = new CountryListTable("World", $DATE);
+                            $table->genTable();
+                            ?>
+                        </div>
                     </div>
                 </div>
+                <!--prima tabella (Mondo)-->
             </div>
-            <!--prima tabella (Mondo)-->
         </div>
-    </div>
     </div>
     <!--prima riga-->
 

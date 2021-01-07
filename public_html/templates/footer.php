@@ -1,15 +1,16 @@
 <!--cookie managment (serve anche per la dark mode)-->
-<script src="https://www.covidtracker2020.live/js/cookie_managment.js"></script>
+<script src="/js/cookie_managment.js"></script>
 
 <!-- gestione dark mode -->
-<script src="https://www.covidtracker2020.live/js/dark_mode.js"></script>
+<script src="/js/dark_mode.js"></script>
 
 <script>
     initializeDarkMode();
+    toggleDarkMode();
 </script>
 
 
-
+ciao
 
 <div class="py-3 bg-dark " >
     <div class="container">
@@ -25,8 +26,8 @@
 
             <i class="fas fa-virus logo "></i>
 
-         <a href="https://github.com/SkinnyMonkeys"> <i class="fab fa-linkedin icona ml-4 m-2 zoom" style="color:white; font-size: 250%;"></i> </a>   
-           <a href="https://t.me/covidtracker"> <i class="fab fa-telegram icona  m-2 zoom" style="color:white; font-size: 250%;"></i>  </a> 
+            <i class="fab fa-linkedin icona ml-4 m-2 zoom" style="color:white; font-size: 250%;"></i>
+            <i class="fab fa-telegram icona  m-2 zoom" style="color:white; font-size: 250%;"></i> 
 
 
 </div>

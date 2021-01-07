@@ -13,7 +13,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto ">
 
             <li class="nav-item  <?php if ("https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"  == "https://www.covidtracker2020.live/" || "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI] "  == "https://www.covidtracker2020.live/") {
                                         echo "active";
@@ -25,6 +25,12 @@
                                         echo "activ ";
                                     }  ?>">
                 <a class="nav-link" title="Repository" href="https://www.covidtracker2020.live/pages/repository/">Repository <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item  <?php if ("https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"  == "https://www.covidtracker2020.live/pages/live/" || "https://www.covidtracker2020.live/pages/live/") {
+                                        echo "activ ";
+                                    }  ?>">
+                <a class="nav-link " title="Repository" href="https://www.covidtracker2020.live/pages/live/"> Live <span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item <?php if (" https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI] "  == "https://www.covidtracker2020.live/pages/map/ " || "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI] "  == "https://www.covidtracker2020.live/pages/map/ ") {

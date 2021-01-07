@@ -2,12 +2,12 @@
 
 /*
      *      Classe:         InfoCard
-     *      Descrizione:    Gestione e implementazoni delle card con le info generali
+     *      Descrizione:    Gestione e implementazoni delle card con le info generali                     Mit :) quando vedi questo messaggio dimmelo
      */
 class InfoCard
 {
 
-    //card con i TotalCases
+    //card con i TotalCases 
     public static function TotalCases($connection, $date)
     {
 ?>

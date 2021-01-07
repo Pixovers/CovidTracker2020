@@ -2,6 +2,11 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+    
+    $CONTENT_LANGUAGE = "en-en";
+    $LANGUAGE = "EN";
+
     //import delle credenziali di accesso ai database
     $DB_ACCESS = include('db_credentials.php');
     
@@ -23,14 +28,25 @@ error_reporting(E_ALL);
         die("Database Error.");
     }
     
-    $DATE = $COVID_DB_CONN->query("SELECT date FROM covid_data WHERE location = 'World' ORDER BY date DESC LIMIT 1")->fetch_assoc()['date'];
+
+    if( isset($_GET['date']) ) {
+        if( $_GET['date'] <= $COVID_DB_CONN->query("SELECT date FROM covid_data WHERE location = 'World' ORDER BY date DESC LIMIT 1")->fetch_assoc()['date'] && $_GET['date'] >= "2020-02-01" ) {
+            $DATE = $_GET['date'];
+        } else {
+            $DATE = $COVID_DB_CONN->query("SELECT date FROM covid_data WHERE location = 'World' ORDER BY date DESC LIMIT 1")->fetch_assoc()['date'];
+        }
+        
+    } else {
+        $DATE = $COVID_DB_CONN->query("SELECT date FROM covid_data WHERE location = 'World' ORDER BY date DESC LIMIT 1")->fetch_assoc()['date'];
+    }
+    
 
     
     switch( $_SERVER["SCRIPT_NAME"] ) {
         
         case '/index.php':
             $CURRENT_PAGE = "Dashboard";
-            $PAGE_TITLE = "Dashboard | Covid Tracker 2020";
+            $PAGE_TITLE = "Dashboard";
             $PAGE_DESCRIPTION = "COVID-19 real time data counter. Keep track of all coronavirus today cases, deaths, and all other news. Download COVID-19 data in PDF and other formats.";
             $PAGE_KEYWORDS = "COVID, CASES TODAY, NEW CASES, DEATHS TODAY, NEW DEATHS, COVID-19, CORONAVIRUS, COUNTER, DEATH RATE, TESTS";
             $PAGE_PREVIEW_IMAGE = "/images/covidtracker2020_logo_image.png";
@@ -53,10 +69,10 @@ error_reporting(E_ALL);
                 if( array_search( str_replace("_"," ",$_GET['country']), $countries_list ) !== FALSE ) {
                     $chosen_country = str_replace("_"," ",$_GET['country']);
                 }
-                $PAGE_TITLE = $chosen_country . " Coronavirus Data & Map | Covid Tracker 2020";
+                $PAGE_TITLE = $chosen_country . " Coronavirus Data & Map";
                 $PAGE_DESCRIPTION = "COVID-19 real time data counters and map. Keep track of all " . $chosen_country . " Coronavirus data updates. Download virus data in PDF and other formats.";
             } else {
-                $PAGE_TITLE = "World Countries Coronavirus Data & Map | Covid Tracker 2020";
+                $PAGE_TITLE = "World Countries Coronavirus Data & Map";
                 $PAGE_DESCRIPTION = "COVID-19 real time data counters and map. Keep track of all World Countries Coronavirus data updates. Download virus data in PDF and other formats.";
             }
             
@@ -77,7 +93,7 @@ error_reporting(E_ALL);
                 }
             }
             
-            $PAGE_TITLE = $chosen_continent . " Coronavirus Data & Map | Covid Tracker 2020";
+            $PAGE_TITLE = $chosen_continent . " Coronavirus Data & Map";
             $PAGE_DESCRIPTION = "COVID-19 real time data counters and map. Keep track of all " . $chosen_continent . " Coronavirus data updates. Download virus data in PDF and other formats.";
             $PAGE_PREVIEW_IMAGE = "https://www.covidtracker2020.live/images/previews/" . strtolower(str_replace(" ","_",$chosen_continent)) . ".png";
             $PAGE_KEYWORDS = "COVID, CASES TODAY, NEW CASES, DEATHS TODAY, NEW DEATHS, COVID-19, CORONAVIRUS, COUNTER, DEATH RATE, TESTS";
@@ -85,11 +101,21 @@ error_reporting(E_ALL);
             
         case '/pages/map/index.php':
             $CURRENT_PAGE = "Map";
-            $PAGE_TITLE = "Map | Covid Tracker 2020";
+            $PAGE_TITLE = "Map";
             $PAGE_DESCRIPTION = "COVID-19 real time data counter. Keep track of all coronavirus today cases, deaths, and all other news. Download COVID-19 data in PDF and other formats.";
             $PAGE_KEYWORDS = "COVID, CASES TODAY, NEW CASES, DEATHS TODAY, NEW DEATHS, COVID-19, CORONAVIRUS, COUNTER, DEATH RATE, TESTS";
             $PAGE_PREVIEW_IMAGE = "/images/covidtracker2020_logo_image.png";
             break;
+
+        case '/pages/live/index.php':
+            $CURRENT_PAGE = "Live";
+            $PAGE_TITLE = "Live";
+            $PAGE_DESCRIPTION = "COVID-19 real time data counter. Keep track of all coronavirus today cases, deaths, and all other news. Download COVID-19 data in PDF and other formats.";
+            $PAGE_KEYWORDS = "COVID, CASES TODAY, NEW CASES, DEATHS TODAY, NEW DEATHS, COVID-19, CORONAVIRUS, COUNTER, DEATH RATE, TESTS";
+            $PAGE_PREVIEW_IMAGE = "/images/covidtracker2020_logo_image.png";
+            break;
+
+        
     }
 
 ?>

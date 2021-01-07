@@ -43,7 +43,7 @@ $dates = intervalsFromDate( "2020-01-01", "months" );
             jQuery(document).ready(function() {
                 jQuery('#vmap').vectorMap({
                     map: 'world_en',
-                    backgroundColor: '#181C30',
+                    backgroundColor: 'rgba(0,0,0,0)',
                     color: '#ffffff',
                     hoverOpacity: 0.7,
                     selectedColor: '#666666',

@@ -62,7 +62,7 @@
         </div>
 
         <div class="product-device shadow-sm d-none d-md-block"> </div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"> </div>
+        <div class="product-device-2 shadow-sm d-none d-md-block"> </div>
     </div>
 
 
@@ -277,7 +277,7 @@
 
 
 
-    <div class="py-1 text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+    <!--div class="py-1 text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 p-0">
@@ -290,8 +290,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div-->
+    <br><br><br><br>
     <?php
     include '/home/covid/resources/templates/footer.php';
     ?>
@@ -340,7 +340,7 @@
         width: 300px;
         height: 540px;
         background-size: auto;
-        background-color: #333;
+        background-color: #e5e5e5;
         border-radius: 21px;
         -webkit-transform: rotate(30deg);
         transform: rotate(30deg);
@@ -352,20 +352,42 @@
         right: 10px;
         bottom: 10%;
         left: 10px;
-        content: url("https://picsum.photos/280/427");
-        ;
+        content: url("https://www.covidtracker2020.live/images/covidtracker-mobile-screen-001.jpg");
+        
         background-color: rgba(255, 255, 255, .1);
         border-radius: 5px;
 
     }
 
     .product-device-2 {
+        position: absolute;
         top: -25%;
         right: auto;
         bottom: 0;
         left: 5%;
-        background-color: #e5e5e5;
+        background-color: #333;
+        width: 300px;
+        height: 540px;
+        background-size: auto;
+        border-radius: 21px;
+        -webkit-transform: rotate(30deg);
+        transform: rotate(30deg);
     }
+
+    .product-device-2::before {
+        position: absolute;
+        top: 10%;
+        right: 10px;
+        bottom: 10%;
+        left: 10px;
+        content: url("https://www.covidtracker2020.live/images/covidtracker-mobile-screen-002.jpg");
+        ;
+        background-color: rgba(255, 255, 255, .1);
+        border-radius: 5px;
+
+    }
+
+
 
     /*
  * Extra utilities

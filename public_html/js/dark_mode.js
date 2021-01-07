@@ -1,13 +1,16 @@
 //funzione chiamata all'inizio di ogni pagina, per inizializzare la dark/light mode
 function initializeDarkMode() {
-    //alert(window.name);
+
     var dm_switch = document.getElementById("dark_mode_switch");
 
     if (window.name == "dark") {
         dm_switch.checked = true;
     } else if (window.name == "light") {
         dm_switch.checked = false;
+    } else {
+        dm_switch.checked = true;
     }
+    
     if (dm_switch.checked == true) {
         setDarkMode(true);
     } else {
@@ -19,8 +22,9 @@ function initializeDarkMode() {
 
 //inverte la modalità attuale
 function toggleDarkMode() {
+    
     if (window.name == "") {
-        window.name = "light";
+        window.name = "dark";
     }
 
     if (window.name == "dark") {
@@ -35,7 +39,7 @@ function toggleDarkMode() {
 function setDarkMode(value) {
 
 
-    //setup valore cookie
+
     if (value) {
         window.name = "dark";
     } else {
@@ -92,17 +96,17 @@ function setDarkMode(value) {
     //setup logo mascherina
     var mask_img;
     if (value) {
-        document.getElementById("mask_logo").src = "/images/mask_dark.png";
+        document.getElementById("mask_logo").src = "https://www.covidtracker2020.live/images/mask_dark.png";
     } else {
-        document.getElementById("mask_logo").src = "/images/mask_light.png";
+        document.getElementById("mask_logo").src = "https://www.covidtracker2020.live/images/mask_light.png";
     }
 
     //setup logo 
     var sun_img;
     if (value) {
-        document.getElementById("sun_img").src = "/images/sun_dark.png";
+        document.getElementById("sun_img").src = "https://www.covidtracker2020.live/images/sun_dark.png";
     } else {
-        document.getElementById("sun_img").src = "/images/sun_light.png";
+        document.getElementById("sun_img").src = "https://www.covidtracker2020.live/images/sun_light.png";
     }
 
 
